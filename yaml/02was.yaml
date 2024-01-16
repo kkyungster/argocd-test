@@ -15,7 +15,7 @@ kind: Deployment
 metadata:
   name: mywas
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
       app: mywas
