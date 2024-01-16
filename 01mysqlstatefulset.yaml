@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+spec:
+  replicas: 1
+  serviceName: mysql-svc
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mysql
+          image: kkyungjin/rapa_db:v1
+          args: 
+            - "--ignore-db-dir=lost+found"
+          ports:
+            - name: tpc
+              protocol: TCP
+              containerPort: 3306
+          envFrom:
+          - secretRef:
+              name: db-secret                 
+      volumes:
+        - name: conf
+          configMap:
+            name: mysql-cnf
+  volumeClaimTemplates: 
+    - metadata:
+        name: data
+      spec:
+        storageClassName: aws-sc-ebs     #storageClassName에 값을 주지 않으면 default 로 동작한다. 
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+
+---
+apiVersion: v1
+data:
+  MYSQL_DATABASE: Ym9vdF9ib2FyZA==
+  MYSQL_PASSWORD: ZnJvZG81MDIwISE=
+  MYSQL_ROOT_HOST: JQ==
+  MYSQL_ROOT_PASSWORD: ZnJvZG81MDIwISE=
+  MYSQL_USER: ZnJvZG8=
+kind: Secret
+metadata:
+  name: db-secret
