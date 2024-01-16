@@ -7,5 +7,5 @@ resources:
 images:
 - name: cicd-image
   newName: kkyungjin/rapa-cicdlab
-  newTag: v1
+  newTag: v28
 namespace: default
