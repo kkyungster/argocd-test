@@ -6,6 +6,6 @@ resources:
 - 02was.yaml
 images:
 - name: cicd-image
-  newName: kkyungjin/rapa-cicdlab2
+  newName: kkyungjin/rapa-cicdlab
   newTag: v1
 namespace: default
