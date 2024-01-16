@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: mywas
-        image: kkyungjin/rapa_was2:v1
+        image: kkyungjin/rapa-cicdlab:v28
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
